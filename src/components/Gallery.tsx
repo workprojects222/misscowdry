@@ -1,0 +1,154 @@
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { galleryImages } from '../assets/images';
+
+const slideTransition = {
+  duration: 0.75,
+  ease: 'easeInOut',
+};
+
+export default function Gallery() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: '-100px' });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
+  const imageCount = galleryImages.length;
+  const intervalRef = useRef<number | null>(null);
+
+  const nextSlide = () => {
+    setDirection(1);
+    setActiveIndex((current) => (current + 1) % imageCount);
+  };
+
+  const previousSlide = () => {
+    setDirection(-1);
+    setActiveIndex((current) => (current - 1 + imageCount) % imageCount);
+  };
+
+  useEffect(() => {
+    if (isPaused) {
+      return;
+    }
+
+    intervalRef.current = window.setInterval(nextSlide, 4000);
+
+    return () => {
+      if (intervalRef.current) {
+        window.clearInterval(intervalRef.current);
+      }
+    };
+  }, [isPaused]);
+
+  const handleDragEnd = (_: any, info: { offset: { x: number }; velocity: { x: number } }) => {
+    const swipePower = Math.abs(info.offset.x) * info.velocity.x;
+    if (swipePower < 1000) {
+      return;
+    }
+
+    if (info.offset.x > 0) {
+      previousSlide();
+    } else {
+      nextSlide();
+    }
+  };
+
+  return (
+    <section
+      id="gallery"
+      ref={containerRef}
+      className="relative py-24 md:py-32 bg-charcoal overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div className="px-6 md:px-8 lg:px-12 mb-12 md:mb-16">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-warm/40 text-xs tracking-[0.3em] uppercase mb-6"
+        >
+          Gallery
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.1, duration: 0.8 }}
+          className="text-5xl md:text-6xl lg:text-7xl font-light tracking-[-0.02em] text-warm"
+        >
+          Moments of
+        </motion.h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-[-0.02em] text-lime"
+        >
+          Transformation
+        </motion.h2>
+      </div>
+
+      <div className="relative w-[100vw] left-1/2 -translate-x-1/2 px-1 sm:px-2 lg:px-4 overflow-visible">
+        <div className="relative overflow-hidden border border-white/10 bg-black min-h-[450px] sm:min-h-[550px] lg:min-h-[700px] max-h-[90vh]">
+          {galleryImages.map((image, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <motion.div
+                key={image.alt}
+                className="absolute inset-0 flex items-center justify-center"
+                initial={false}
+                animate={
+                  isActive
+                    ? { opacity: 1, x: 0, zIndex: 2 }
+                    : { opacity: 0, x: direction > 0 ? -40 : 40, zIndex: 1 }
+                }
+                transition={slideTransition}
+                style={{ pointerEvents: isActive ? 'auto' : 'none' }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.18}
+                onDragStart={() => setIsPaused(true)}
+                onDragEnd={handleDragEnd}
+              >
+                <img
+                  src={image.url}
+                  alt={image.alt}
+                  className="w-full h-full object-contain object-center"
+                  loading="lazy"
+                />
+              </motion.div>
+            );
+          })}
+
+          <motion.button
+            type="button"
+            onClick={previousSlide}
+            whileHover={{ scale: 1.05, x: -6 }}
+            transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+            className="pointer-events-auto absolute left-0 top-1/2 z-20 -translate-y-1/2 flex h-12 w-40 items-center justify-start gap-3 px-3 text-white sm:h-14 sm:w-52 focus:outline-none"
+            aria-label="Previous slide"
+          >
+            <span className="text-base uppercase tracking-[0.3em] sm:text-lg">⟵</span>
+            <span className="h-px w-24 bg-white transition-all duration-300" />
+          </motion.button>
+
+          <motion.button
+            type="button"
+            onClick={nextSlide}
+            whileHover={{ scale: 1.05, x: 6 }}
+            transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+            className="pointer-events-auto absolute right-0 top-1/2 z-20 -translate-y-1/2 flex h-12 w-40 items-center justify-end gap-3 px-3 text-white sm:h-14 sm:w-52 focus:outline-none"
+            aria-label="Next slide"
+          >
+            <span className="h-px w-24 bg-white transition-all duration-300" />
+            <span className="text-base uppercase tracking-[0.3em] sm:text-lg">⟶</span>
+          </motion.button>
+
+          <div className="pointer-events-none absolute right-6 bottom-6 text-right text-xs tracking-[0.45em] uppercase text-white/70">
+            {String(activeIndex + 1).padStart(2, '0')} / {String(imageCount).padStart(2, '0')}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="grad3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D9D9C0" />
+      <stop offset="100%" stop-color="#0E0E0E" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#grad3)" />
+  <circle cx="120" cy="160" r="120" fill="#B6FF00" opacity="0.4" />
+  <circle cx="490" cy="740" r="140" fill="#111827" opacity="0.5" />
+  <text x="300" y="520" text-anchor="middle" fill="#111827" font-family="Space Grotesk, sans-serif" font-size="50" font-weight="700">Accent</text>
+</svg>
