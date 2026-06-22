@@ -1,12 +1,30 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { heroImage } from '../assets/images';
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const preloadLink = document.createElement('link');
+    preloadLink.rel = 'preload';
+    preloadLink.as = 'image';
+    preloadLink.href = heroImage;
+    document.head.appendChild(preloadLink);
+
+    const image = new Image();
+    image.src = heroImage;
+    image.onload = () => setIsLoaded(true);
+
+    return () => {
+      document.head.removeChild(preloadLink);
+    };
+  }, []);
+
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start end', 'end start'] });
   const imageY = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.04, 1]);
   const sectionOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, 0.45]);
   const sectionBlur = useTransform(scrollYProgress, [0, 0.7, 1], ['0px', '0px', '8px']);
   const textLift = useTransform(scrollYProgress, [0, 1], [0, -28]);
@@ -29,15 +47,22 @@ export default function Hero() {
     <motion.section
       id="home"
       ref={containerRef}
-      className="relative h-screen overflow-hidden"
+      className="relative min-h-screen h-screen overflow-hidden"
       style={{ opacity: sectionOpacity, filter: sectionBlur }}
     >
-      <motion.img
-        src={heroImage}
-        alt="Youth empowerment"
-        className="absolute inset-0 w-full h-full object-cover object-[70%_center]"
-        style={{ y: imageY, scale: imageScale }}
-      />
+      <motion.div className="absolute inset-0 overflow-hidden">
+        <motion.img
+          src={heroImage}
+          alt="Youth empowerment"
+          className="absolute inset-0 w-full h-full object-cover object-[70%_center]"
+          style={{ y: imageY, scale: imageScale, opacity: isLoaded ? 1 : 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isLoaded ? 1 : 0 }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
+          loading="eager"
+          decoding="async"
+        />
+      </motion.div>
 
       <div
         className="absolute inset-0"
