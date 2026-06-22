@@ -1,7 +1,16 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { heroImage } from '../assets/images';
 
 export default function Hero() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start end', 'end start'] });
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
+  const sectionOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, 0.45]);
+  const sectionBlur = useTransform(scrollYProgress, [0, 0.7, 1], ['0px', '0px', '8px']);
+  const textLift = useTransform(scrollYProgress, [0, 1], [0, -28]);
+
   const scrollToPrograms = () => {
     const element = document.getElementById('programs');
     if (element) {
@@ -17,20 +26,23 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="relative h-screen overflow-hidden">
+    <motion.section
+      id="home"
+      ref={containerRef}
+      className="relative h-screen overflow-hidden"
+      style={{ opacity: sectionOpacity, filter: sectionBlur }}
+    >
       <motion.img
         src={heroImage}
         alt="Youth empowerment"
         className="absolute inset-0 w-full h-full object-cover object-[70%_center]"
-        initial={{ scale: 1.05 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 5, ease: 'easeOut' }}
+        style={{ y: imageY, scale: imageScale }}
       />
 
       <div
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(90deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0) 100%)',
+          background: 'linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.48) 30%, rgba(0,0,0,0.24) 55%, rgba(0,0,0,0) 100%)',
         }}
       />
 
@@ -38,12 +50,12 @@ export default function Hero() {
         <div className="container-wide h-full">
           <div className="grid h-full grid-cols-1 lg:grid-cols-[40%_60%]">
             <div className="flex items-center px-6 md:px-12 lg:px-0">
-              <div className="max-w-[550px] text-white">
+              <motion.div style={{ y: textLift }} className="max-w-[550px] text-ivory-white">
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-xs md:text-sm tracking-[0.3em] uppercase text-warm/70 mb-4"
+                  className="text-xs md:text-sm tracking-[0.3em] uppercase text-ivory-white/70 mb-4"
                 >
                   Bulawayo, Zimbabwe
                 </motion.p>
@@ -70,7 +82,7 @@ export default function Hero() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.5 }}
-                  className="text-base md:text-lg leading-relaxed text-white/85 mb-10"
+                  className="text-base md:text-lg leading-relaxed text-ivory-white/85 mb-10"
                 >
                   Empowering young people through leadership development, talent nurturing, and community engagement initiatives.
                 </motion.p>
@@ -83,23 +95,23 @@ export default function Hero() {
                 >
                   <button
                     onClick={scrollToPrograms}
-                    className="w-full rounded-none border border-white/20 bg-lime px-8 py-4 text-sm uppercase tracking-[0.15em] text-charcoal transition hover:brightness-95"
+                    className="w-full rounded-none border border-ivory-white/20 bg-luxury-gold px-8 py-4 text-sm uppercase tracking-[0.15em] text-rich-black transition hover:bg-champagne-gold"
                   >
                     Explore Programs
                   </button>
                   <button
                     onClick={scrollToContact}
-                    className="w-full rounded-none border border-white/20 bg-white/10 px-8 py-4 text-sm uppercase tracking-[0.15em] text-white transition hover:border-lime hover:text-lime"
+                    className="w-full rounded-none border border-ivory-white/20 bg-ivory-white/10 px-8 py-4 text-sm uppercase tracking-[0.15em] text-ivory-white transition hover:border-luxury-gold hover:text-luxury-gold"
                   >
                     Join Now
                   </button>
                 </motion.div>
-              </div>
+              </motion.div>
             </div>
             <div className="hidden lg:block" />
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

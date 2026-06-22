@@ -34,13 +34,13 @@ export default function Footer() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-warm text-[2rem] md:text-[3rem] lg:text-[4rem] font-light leading-[1] tracking-[-0.02em] mb-3">
+            <h2 className="text-ivory-white text-[2rem] md:text-[3rem] lg:text-[4rem] font-light leading-[1] tracking-[-0.02em] mb-3">
               COWDRAY PARK
             </h2>
-            <h2 className="text-lime text-[2rem] md:text-[3rem] lg:text-[4rem] font-semibold leading-[1] tracking-[-0.02em] mb-8">
+            <h2 className="text-luxury-gold text-[2rem] md:text-[3rem] lg:text-[4rem] font-semibold leading-[1] tracking-[-0.02em] mb-8">
               FOUNDATION
             </h2>
-            <p className="text-warm/50 text-base leading-relaxed max-w-md">
+            <p className="text-ivory-white/50 text-base leading-relaxed max-w-md">
               Building the next generation of leaders through youth empowerment
               and community transformation in Bulawayo, Zimbabwe.
             </p>
@@ -54,13 +54,13 @@ export default function Footer() {
             className="grid grid-cols-2 gap-8"
           >
             <div>
-              <p className="text-warm/40 text-xs tracking-[0.2em] uppercase mb-6">Navigation</p>
+              <p className="text-ivory-white/40 text-xs tracking-[0.2em] uppercase mb-6">Navigation</p>
               <ul className="space-y-3">
                 {navLinks.map((link) => (
                   <li key={link.name}>
                     <button
                       onClick={() => scrollToSection(link.href)}
-                      className="text-warm/60 hover:text-lime transition-colors text-sm"
+                      className="text-ivory-white/60 hover:text-luxury-gold transition-colors text-sm"
                     >
                       {link.name}
                     </button>
@@ -69,8 +69,8 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <p className="text-warm/40 text-xs tracking-[0.2em] uppercase mb-6">Contact</p>
-              <ul className="space-y-3 text-warm/60 text-sm">
+              <p className="text-ivory-white/40 text-xs tracking-[0.2em] uppercase mb-6">Contact</p>
+              <ul className="space-y-3 text-ivory-white/60 text-sm">
                 <li>Cowdray Park</li>
                 <li>Bulawayo, Zimbabwe</li>
                 <li className="pt-2">info@cowdrayparkfoundation.org</li>
@@ -83,7 +83,7 @@ export default function Footer() {
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : {}}
                     transition={{ delay: 0.4 + index * 0.1, duration: 0.4 }}
-                    className="w-10 h-10 border border-warm/20 flex items-center justify-center text-warm/50 hover:text-warm hover:border-warm/40 transition-colors text-xs"
+                    className="w-10 h-10 border border-ivory-white/20 flex items-center justify-center text-ivory-white/50 hover:text-ivory-white hover:border-ivory-white/40 transition-colors text-xs"
                   >
                     {social}
                   </motion.button>
@@ -98,12 +98,12 @@ export default function Footer() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="pt-8 border-t border-warm/10 flex flex-col md:flex-row justify-between items-start gap-4"
+          className="pt-8 border-t border-ivory-white/10 flex flex-col md:flex-row justify-between items-start gap-4"
         >
-          <p className="text-warm/30 text-xs tracking-wider">
+          <p className="text-ivory-white/30 text-xs tracking-wider">
             &copy; {new Date().getFullYear()} Cowdray Park Foundation.
           </p>
-          <p className="text-warm/30 text-xs tracking-wider">
+          <p className="text-ivory-white/30 text-xs tracking-wider">
             build and designed by Takudzwa Mbano.
           </p>
         </motion.div>

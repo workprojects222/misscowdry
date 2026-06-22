@@ -102,7 +102,7 @@ export default function Navbar() {
             className="relative z-10"
             whileHover={{ opacity: 0.85 }}
           >
-            <span className="text-lg font-semibold tracking-[0.3em] text-warm uppercase">CPF</span>
+            <span className="text-lg font-semibold tracking-[0.3em] text-ivory-white uppercase">CPF</span>
           </motion.a>
 
           <div className="hidden lg:flex items-center gap-10 xl:gap-14">
@@ -116,14 +116,14 @@ export default function Navbar() {
                 <span
                   className={`text-xs tracking-[0.18em] uppercase font-medium transition-colors duration-300 ${
                     activeSection === link.href.replace('#', '')
-                      ? 'text-lime'
-                      : 'text-warm/70 hover:text-warm'
+                      ? 'text-luxury-gold'
+                      : 'text-ivory-white/70 hover:text-ivory-white'
                   }`}
                 >
                   {link.name}
                 </span>
                 <motion.span
-                  className="absolute -bottom-1 left-0 h-px bg-lime"
+                  className="absolute -bottom-1 left-0 h-px bg-luxury-gold"
                   initial={{ width: 0 }}
                   animate={{
                     width: activeSection === link.href.replace('#', '') ? '100%' : 0,
@@ -142,14 +142,14 @@ export default function Navbar() {
             whileTap={{ scale: 0.92 }}
           >
             <motion.span
-              className="absolute left-0 top-1/2 h-[1px] bg-white"
+              className="absolute left-0 top-1/2 h-[1px] bg-ivory-white"
               variants={topLineVariants}
               animate={isMobileMenuOpen ? 'open' : 'closed'}
               transition={{ type: 'spring', stiffness: 280, damping: 22 }}
               style={{ originX: 0 }}
             />
             <motion.span
-              className="absolute left-0 top-1/2 h-[1px] bg-white"
+              className="absolute left-0 top-1/2 h-[1px] bg-ivory-white"
               variants={bottomLineVariants}
               animate={isMobileMenuOpen ? 'open' : 'closed'}
               whileHover={!isMobileMenuOpen ? { x: -4 } : {}}
@@ -173,7 +173,7 @@ export default function Navbar() {
               className="pointer-events-none absolute inset-0 flex items-center justify-center"
               variants={bgTextVariants}
             >
-              <span className="text-[clamp(10rem,22vw,16rem)] font-black uppercase tracking-[0.25em] text-white/5 leading-none">
+              <span className="text-[clamp(10rem,22vw,16rem)] font-black uppercase tracking-[0.25em] text-ivory-white/5 leading-none">
                 CPF
               </span>
             </motion.div>
@@ -181,7 +181,7 @@ export default function Navbar() {
             <div className="relative z-10 min-h-screen px-8 py-8 flex flex-col">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-sm tracking-[0.35em] uppercase text-warm/60">Menu</span>
+                  <span className="text-sm tracking-[0.35em] uppercase text-ivory-white/60">Menu</span>
                 </div>
                 <motion.button
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -190,13 +190,13 @@ export default function Navbar() {
                   whileTap={{ scale: 0.92 }}
                 >
                   <motion.span
-                    className="absolute left-0 top-1/2 h-[1px] bg-white"
+                    className="absolute left-0 top-1/2 h-[1px] bg-ivory-white"
                     animate={{ width: 24, y: 8, rotate: 45 }}
                     transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                     style={{ originX: 0 }}
                   />
                   <motion.span
-                    className="absolute left-0 top-1/2 h-[1px] bg-white"
+                    className="absolute left-0 top-1/2 h-[1px] bg-ivory-white"
                     animate={{ width: 24, y: 2, rotate: -45 }}
                     transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                     style={{ originX: 0 }}
@@ -209,13 +209,13 @@ export default function Navbar() {
                   <motion.button
                     key={link.name}
                     onClick={() => scrollToSection(link.href)}
-                    className="group relative text-left text-[clamp(4rem,10vw,6.5rem)] font-extralight uppercase tracking-[0.25em] leading-[0.85] text-white"
+                    className="group relative text-left text-[clamp(4rem,10vw,6.5rem)] font-extralight uppercase tracking-[0.25em] leading-[0.85] text-ivory-white"
                     variants={menuItemVariants}
                     whileHover={{ x: 10 }}
                   >
                     <span className="block">{link.name}</span>
                     <motion.span
-                      className="absolute left-0 top-1/2 h-[1px] bg-lime"
+                      className="absolute left-0 top-1/2 h-[1px] bg-luxury-gold"
                       initial={{ width: 0 }}
                       whileHover={{ width: '100%' }}
                       transition={{ duration: 0.35, ease: 'easeOut' }}
@@ -224,7 +224,7 @@ export default function Navbar() {
                 ))}
               </motion.div>
 
-              <motion.div className="mt-auto pt-8 text-warm/60 text-sm uppercase tracking-[0.35em]" variants={contactVariants}>
+              <motion.div className="mt-auto pt-8 text-ivory-white/60 text-sm uppercase tracking-[0.35em]" variants={contactVariants}>
                 <p className="mb-2">contact@cowdrayparkfoundation.org</p>
                 <p>+263 123 456 789</p>
               </motion.div>

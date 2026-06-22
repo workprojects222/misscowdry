@@ -17,14 +17,14 @@
 
   body {
     font-family: 'Space Grotesk', system-ui, sans-serif;
-    background-color: #FAFAF8;
-    color: #0E0E0E;
+    background-color: #0A0A0A;
+    color: #F5F1E8;
     overflow-x: hidden;
   }
 
   ::selection {
-    background-color: #B6FF00;
-    color: #0E0E0E;
+    background-color: #C8A45D;
+    color: #0A0A0A;
   }
 }
 
@@ -88,14 +88,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAFAF8;
+  background: #121212;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #0E0E0E;
+  background: #2A2A2A;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B6FF00;
+  background: #D6B87A;
 }
