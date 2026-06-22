@@ -21,7 +21,7 @@ export default function Quote() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-[-0.03em] text-ivory-white mb-5"
+            className="text-[clamp(1.6rem,4.5vw,6rem)] font-light leading-[1.1] tracking-[-0.03em] text-ivory-white mb-5"
           >
             Empowering Youth.
           </motion.h2>
@@ -30,7 +30,7 @@ export default function Quote() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-[-0.03em] text-ivory-white mb-5"
+            className="text-[clamp(1.6rem,4.5vw,6rem)] font-light leading-[1.1] tracking-[-0.03em] text-ivory-white mb-5"
           >
             Transforming Communities.
           </motion.h2>
@@ -39,7 +39,7 @@ export default function Quote() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-[-0.03em] text-luxury-gold"
+            className="text-[clamp(1.6rem,4.5vw,6rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-luxury-gold"
           >
             Building The Future.
           </motion.h2>

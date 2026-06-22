@@ -38,7 +38,7 @@ export default function MissCowdrayPark() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.25 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-light leading-[0.9] tracking-[-0.04em] text-ivory-white"
+              className="text-[clamp(1.8rem,5vw,7rem)] font-light leading-[0.9] tracking-[-0.04em] text-ivory-white"
             >
               Miss Cowdray Park
             </motion.h2>

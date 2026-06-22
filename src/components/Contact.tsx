@@ -25,10 +25,10 @@ export default function Contact() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="mb-16 md:mb-20 lg:mb-24 max-w-3xl"
+          className="mb-12 md:mb-14 lg:mb-16 max-w-3xl"
         >
           <p className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase mb-6">Get In Touch</p>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-[-0.02em] text-ivory-white mb-8">
+          <h2 className="text-[clamp(1.8rem,5vw,7rem)] font-light tracking-[-0.02em] text-ivory-white mb-8">
             Let's Build Together
           </h2>
           <p className="text-base md:text-lg leading-relaxed text-ivory-white/70">
@@ -37,13 +37,13 @@ export default function Contact() {
         </motion.div>
 
         {/* Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
+        <div className="grid lg:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
           {/* Info Section */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="rounded-[24px] border border-ivory-white/10 bg-charcoal/60 p-8 md:p-10 lg:p-12"
+            className="rounded-[24px] border border-ivory-white/10 bg-charcoal/60 p-6 md:p-8 lg:p-10"
           >
             <div className="space-y-10 mb-12">
               {[
@@ -76,10 +76,10 @@ export default function Contact() {
           {/* Form Section */}
           <motion.form
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.25, duration: 0.8 }}
-            className="space-y-6 rounded-[24px] border border-ivory-white/10 bg-charcoal/60 p-8 md:p-10 lg:p-12"
+            className="space-y-5 rounded-[24px] border border-ivory-white/10 bg-charcoal/60 p-6 md:p-8 lg:p-10"
           >
             <div className="grid md:grid-cols-2 gap-8">
               <div>

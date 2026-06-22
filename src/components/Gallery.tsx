@@ -76,16 +76,16 @@ export default function Gallery() {
           transition={{ delay: 0.1, duration: 0.8 }}
           className="max-w-3xl"
         >
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-[-0.02em] text-ivory-white mb-4">
+          <h2 className="text-[clamp(1.8rem,5vw,7rem)] font-light tracking-[-0.02em] text-ivory-white mb-4">
             Moments of
           </h2>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-[-0.02em] text-luxury-gold">
+          <h2 className="text-[clamp(1.8rem,5vw,7rem)] font-semibold tracking-[-0.02em] text-luxury-gold">
             Transformation
           </h2>
         </motion.div>
       </div>
 
-      <div className="relative w-[100vw] left-1/2 -translate-x-1/2 px-4 sm:px-6 lg:px-8 overflow-visible">
+      <div className="relative w-full overflow-x-hidden">
         <div className="relative overflow-hidden rounded-[32px] border border-ivory-white/10 bg-rich-black min-h-[320px] sm:min-h-[420px] lg:min-h-[480px] max-h-[82vh]">
           {galleryImages.map((image, index) => {
             const isActive = index === activeIndex;

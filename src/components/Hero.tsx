@@ -89,7 +89,7 @@ export default function Hero() {
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
-                  className="text-[3.5rem] md:text-[5rem] lg:text-[6rem] xl:text-[6.5rem] font-light leading-[0.82] tracking-[-0.04em] mb-4"
+                  className="text-[clamp(2.2rem,6vw,6rem)] font-light leading-[0.82] tracking-[-0.04em] mb-4"
                 >
                   COWDRAY PARK
                 </motion.h1>
@@ -98,7 +98,7 @@ export default function Hero() {
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
-                  className="text-[2.8rem] md:text-[3.8rem] lg:text-[4.2rem] font-semibold leading-[0.82] tracking-[-0.04em] mb-10"
+                  className="text-[clamp(1.8rem,5vw,4.2rem)] font-semibold leading-[0.82] tracking-[-0.04em] mb-10"
                 >
                   FOUNDATION
                 </motion.h2>

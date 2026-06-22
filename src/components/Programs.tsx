@@ -143,7 +143,7 @@ function ProgramBlock({
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.9, delay: 0.35 }}
-                className="text-3xl md:text-4xl lg:text-5xl leading-[0.95] font-semibold tracking-[-0.03em] text-ivory-white mb-6"
+                className="text-[clamp(1.5rem,4vw,5rem)] leading-[0.95] font-semibold tracking-[-0.03em] text-ivory-white mb-6"
               >
                 {program.title}
               </motion.h3>
@@ -212,7 +212,7 @@ export default function Programs() {
           className="max-w-3xl"
         >
           <p className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase mb-6">Our Programs</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-[-0.02em] text-ivory-white mb-6">
+          <h2 className="text-[clamp(1.5rem,4vw,6rem)] font-light tracking-[-0.02em] text-ivory-white mb-6">
             Transforming young lives through bold, intentional programs.
           </h2>
           <p className="text-ivory-white/70 text-base md:text-lg leading-relaxed">

@@ -34,10 +34,10 @@ export default function Footer() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-ivory-white text-[2rem] md:text-[3rem] lg:text-[4rem] font-light leading-[1] tracking-[-0.02em] mb-3">
+            <h2 className="text-ivory-white text-[clamp(1.4rem,5vw,4rem)] font-light leading-[1] tracking-[-0.02em] mb-3">
               COWDRAY PARK
             </h2>
-            <h2 className="text-luxury-gold text-[2rem] md:text-[3rem] lg:text-[4rem] font-semibold leading-[1] tracking-[-0.02em] mb-8">
+            <h2 className="text-luxury-gold text-[clamp(1.4rem,5vw,4rem)] font-semibold leading-[1] tracking-[-0.02em] mb-8">
               FOUNDATION
             </h2>
             <p className="text-ivory-white/50 text-base leading-relaxed max-w-md">

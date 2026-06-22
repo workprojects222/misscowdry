@@ -10,42 +10,33 @@ const navLinks = [
   { name: 'Contact', href: '#contact' },
 ];
 
-const overlayVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.98 },
+const sheetVariants: Variants = {
+  hidden: { y: '100%', opacity: 0 },
   visible: {
+    y: 0,
     opacity: 1,
-    scale: 1,
-    transition: {
-      when: 'beforeChildren',
-      staggerChildren: 0.08,
-      delayChildren: 0.14,
-    },
+    transition: { duration: 0.35, ease: 'easeOut' },
   },
+  exit: { y: '100%', opacity: 0, transition: { duration: 0.3, ease: 'easeIn' } },
 };
 
-const bgTextVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.98 },
-  visible: { opacity: 0.05, scale: 1, transition: { duration: 0.8 } },
+const backdropVariants: Variants = {
+  hidden: { opacity: 0, backdropFilter: 'blur(0px)' },
+  visible: {
+    opacity: 1,
+    backdropFilter: 'blur(8px)',
+    transition: { duration: 0.35 },
+  },
+  exit: { opacity: 0, backdropFilter: 'blur(0px)', transition: { duration: 0.3 } },
 };
 
 const menuItemVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
-};
-
-const contactVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } },
-};
-
-const topLineVariants: Variants = {
-  closed: { width: 32, y: 0, rotate: 0 },
-  open: { width: 24, y: 8, rotate: 45 },
-};
-
-const bottomLineVariants: Variants = {
-  closed: { width: 20, y: 10, rotate: 0, x: 0 },
-  open: { width: 24, y: 2, rotate: -45, x: 0 },
+  hidden: { opacity: 0, x: -20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { delay: 0.05 + i * 0.03, duration: 0.35, ease: 'easeOut' },
+  }),
 };
 
 export default function Navbar() {
@@ -89,11 +80,9 @@ export default function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
-          isScrolled ? 'bg-charcoal/95 backdrop-blur-sm py-4' : 'bg-transparent py-4'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${isScrolled ? 'bg-charcoal/95 backdrop-blur-sm py-3.5' : 'bg-transparent py-4'}`}
       >
-        <div className="px-6 md:px-10 lg:px-16 flex items-center justify-between">
+        <div className="px-4 sm:px-6 lg:px-16 flex items-center justify-between">
           <motion.a
             href="#home"
             onClick={(e) => {
@@ -103,12 +92,10 @@ export default function Navbar() {
             className="relative z-10"
             whileHover={{ opacity: 0.85 }}
           >
-            <span className="text-base font-semibold tracking-[0.35em] text-ivory-white uppercase">
-              CPF
-            </span>
+            <span className="text-sm font-semibold tracking-[0.35em] text-ivory-white uppercase">CPF</span>
           </motion.a>
 
-          <div className="hidden lg:flex items-center gap-8 xl:gap-10">
+          <div className="hidden lg:flex items-center gap-8 xl:gap-12">
             {navLinks.map((link) => (
               <motion.button
                 key={link.name}
@@ -117,11 +104,7 @@ export default function Navbar() {
                 whileHover={{ y: -1 }}
               >
                 <span
-                  className={`text-[0.65rem] md:text-[0.7rem] tracking-[0.2em] uppercase font-medium transition-colors duration-300 ${
-                    activeSection === link.href.replace('#', '')
-                      ? 'text-luxury-gold'
-                      : 'text-ivory-white/70 hover:text-ivory-white'
-                  }`}
+                  className={`text-[0.65rem] tracking-[0.2em] uppercase font-medium transition-colors duration-300 ${activeSection === link.href.replace('#', '') ? 'text-luxury-gold' : 'text-ivory-white/70 hover:text-ivory-white'}`}
                 >
                   {link.name}
                 </span>
@@ -139,100 +122,80 @@ export default function Navbar() {
           </div>
 
           <motion.button
-            onClick={() => setIsMobileMenuOpen((current) => !current)}
-            className="lg:hidden relative flex h-10 w-12 items-center justify-center"
-            whileHover={isMobileMenuOpen ? {} : { scale: 1.02 }}
-            whileTap={{ scale: 0.92 }}
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="lg:hidden relative flex h-10 w-10 items-center justify-center"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <motion.span
-              className="absolute left-0 top-1/2 h-[1px] bg-ivory-white"
-              variants={topLineVariants}
-              animate={isMobileMenuOpen ? 'open' : 'closed'}
-              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-              style={{ originX: 0 }}
-            />
-            <motion.span
-              className="absolute left-0 top-1/2 h-[1px] bg-ivory-white"
-              variants={bottomLineVariants}
-              animate={isMobileMenuOpen ? 'open' : 'closed'}
-              whileHover={!isMobileMenuOpen ? { x: -3 } : {}}
-              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-              style={{ originX: 0 }}
-            />
+            <svg className="w-5 h-5 text-ivory-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
           </motion.button>
         </div>
       </motion.nav>
 
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            className="fixed inset-0 z-[60] bg-[#0F0F0F]"
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={overlayVariants}
-          >
+          <>
             <motion.div
-              className="pointer-events-none absolute inset-0 flex items-center justify-center"
-              variants={bgTextVariants}
+              className="fixed inset-0 z-40 bg-charcoal/40"
+              variants={backdropVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+
+            <motion.div
+              className="fixed bottom-0 left-0 right-0 z-50 w-full rounded-t-[32px] bg-charcoal border-t border-ivory-white/10"
+              variants={sheetVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
-              <span className="text-[clamp(10rem,22vw,16rem)] font-black uppercase tracking-[0.25em] text-ivory-white/5 leading-none">
-                CPF
-              </span>
-            </motion.div>
-
-            <div className="relative z-10 min-h-screen px-6 py-6 flex flex-col">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-sm tracking-[0.35em] uppercase text-ivory-white/60">Menu</span>
-                </div>
-                <motion.button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="relative flex h-10 w-14 items-center justify-center"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.92 }}
-                >
-                  <motion.span
-                    className="absolute left-0 top-1/2 h-[1px] bg-ivory-white"
-                    animate={{ width: 24, y: 8, rotate: 45 }}
-                    transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                    style={{ originX: 0 }}
-                  />
-                  <motion.span
-                    className="absolute left-0 top-1/2 h-[1px] bg-ivory-white"
-                    animate={{ width: 24, y: 2, rotate: -45 }}
-                    transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                    style={{ originX: 0 }}
-                  />
-                </motion.button>
-              </div>
-
-              <motion.div className="mt-12 flex-1 grid gap-5" initial="hidden" animate="visible" variants={overlayVariants}>
-                {navLinks.map((link) => (
+              <div className="px-6 py-6 max-h-[85vh] overflow-y-auto">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-xs tracking-[0.35em] uppercase text-ivory-white font-semibold">Navigation</h2>
                   <motion.button
-                    key={link.name}
-                    onClick={() => scrollToSection(link.href)}
-                    className="group relative text-left text-[clamp(2.4rem,7vw,3.8rem)] font-extralight uppercase tracking-[0.18em] leading-[0.92] text-ivory-white"
-                    variants={menuItemVariants}
-                    whileHover={{ x: 10 }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="relative flex h-8 w-8 items-center justify-center text-ivory-white/60 hover:text-ivory-white"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <span className="block">{link.name}</span>
-                    <motion.span
-                      className="absolute left-0 top-1/2 h-[1px] bg-luxury-gold"
-                      initial={{ width: 0 }}
-                      whileHover={{ width: '100%' }}
-                      transition={{ duration: 0.35, ease: 'easeOut' }}
-                    />
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                   </motion.button>
-                ))}
-              </motion.div>
+                </div>
 
-              <motion.div className="mt-auto pt-8 text-ivory-white/60 text-sm uppercase tracking-[0.35em]" variants={contactVariants}>
-                <p className="mb-2">contact@cowdrayparkfoundation.org</p>
-                <p>+263 123 456 789</p>
-              </motion.div>
-            </div>
-          </motion.div>
+                <motion.div className="space-y-2">
+                  {navLinks.map((link, index) => (
+                    <motion.button
+                      key={link.name}
+                      onClick={() => scrollToSection(link.href)}
+                      className="w-full text-left px-4 py-3 rounded-lg text-base md:text-lg font-medium text-ivory-white hover:bg-ivory-white/5 transition-colors duration-200 flex items-center justify-between group"
+                      variants={menuItemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      custom={index}
+                      whileHover={{ x: 4 }}
+                    >
+                      <span>{link.name}</span>
+                      <span className="text-ivory-white/40 group-hover:text-luxury-gold transition-colors">→</span>
+                    </motion.button>
+                  ))}
+                </motion.div>
+
+                <div className="mt-8 pt-6 border-t border-ivory-white/10">
+                  <p className="text-xs tracking-[0.2em] uppercase text-ivory-white/50 mb-4">Contact</p>
+                  <div className="space-y-2 text-sm text-ivory-white/70">
+                    <p>contact@cowdrayparkfoundation.org</p>
+                    <p>+263 123 456 789</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

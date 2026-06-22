@@ -54,7 +54,7 @@ export default function Impact() {
           className="mb-10 md:mb-14 lg:mb-18 max-w-3xl"
         >
           <p className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase mb-6">Measurable Impact</p>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-[-0.02em] text-ivory-white mb-8">
+          <h2 className="text-[clamp(1.8rem,5vw,7rem)] font-light tracking-[-0.02em] text-ivory-white mb-8">
             Real Change
           </h2>
           <p className="text-base md:text-lg leading-relaxed text-ivory-white/70">
