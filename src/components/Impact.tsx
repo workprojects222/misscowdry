@@ -36,7 +36,7 @@ function AnimatedCount({ target, suffix, trigger }: { target: number; suffix: st
     return controls.stop;
   }, [trigger, target, motionValue]);
 
-  return <p className="text-4xl md:text-5xl font-semibold text-ivory-white mb-5">{value}{suffix}</p>;
+  return <p className="text-4xl md:text-5xl font-semibold text-ivory-white mb-4">{value}{suffix}</p>;
 }
 
 export default function Impact() {
@@ -44,14 +44,14 @@ export default function Impact() {
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
 
   return (
-    <section id="impact" ref={containerRef} className="relative overflow-hidden bg-charcoal py-24 md:py-32 lg:py-48">
+    <section id="impact" ref={containerRef} className="relative overflow-hidden bg-charcoal py-18 md:py-22 lg:py-28">
       <div className="container-wide">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="mb-16 md:mb-20 lg:mb-24 max-w-3xl"
+          className="mb-10 md:mb-14 lg:mb-18 max-w-3xl"
         >
           <p className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase mb-6">Measurable Impact</p>
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-[-0.02em] text-ivory-white mb-8">
@@ -63,14 +63,14 @@ export default function Impact() {
         </motion.div>
 
         {/* Stats Grid */}
-        <div className="grid gap-6 md:gap-8 lg:gap-10 md:grid-cols-3">
+        <div className="grid gap-5 md:gap-6 lg:gap-8 md:grid-cols-3">
           {impactItems.map((item, index) => (
             <motion.div
               key={`${item.target}${item.suffix}`}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2 + index * 0.1, duration: 0.8 }}
-              className="rounded-[32px] border border-ivory-white/10 bg-ivory-white/5 p-10 md:p-12 lg:p-16"
+              className="rounded-[24px] border border-ivory-white/10 bg-ivory-white/5 p-8 md:p-10 lg:p-12"
             >
               <AnimatedCount target={item.target} suffix={item.suffix} trigger={isInView} />
               <p className="text-ivory-white/60 text-base leading-relaxed">{item.description}</p>

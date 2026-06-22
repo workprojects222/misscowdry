@@ -18,7 +18,7 @@ const overlayVariants: Variants = {
     transition: {
       when: 'beforeChildren',
       staggerChildren: 0.08,
-      delayChildren: 0.12,
+      delayChildren: 0.14,
     },
   },
 };
@@ -55,14 +55,14 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > 80);
 
       const sections = navLinks.map((link) => link.href.replace('#', ''));
       for (const section of sections.reverse()) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (rect.top <= 200) {
+          if (rect.top <= 120) {
             setActiveSection(section);
             break;
           }
@@ -70,6 +70,7 @@ export default function Navbar() {
       }
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -77,7 +78,7 @@ export default function Navbar() {
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.replace('#', ''));
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     setIsMobileMenuOpen(false);
   };
@@ -87,12 +88,12 @@ export default function Navbar() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? 'bg-charcoal/95 backdrop-blur-sm py-5' : 'bg-transparent py-8'
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
+          isScrolled ? 'bg-charcoal/95 backdrop-blur-sm py-4' : 'bg-transparent py-4'
         }`}
       >
-        <div className="px-6 md:px-12 lg:px-16 flex items-center justify-between">
+        <div className="px-6 md:px-10 lg:px-16 flex items-center justify-between">
           <motion.a
             href="#home"
             onClick={(e) => {
@@ -102,10 +103,12 @@ export default function Navbar() {
             className="relative z-10"
             whileHover={{ opacity: 0.85 }}
           >
-            <span className="text-lg font-semibold tracking-[0.3em] text-ivory-white uppercase">CPF</span>
+            <span className="text-base font-semibold tracking-[0.35em] text-ivory-white uppercase">
+              CPF
+            </span>
           </motion.a>
 
-          <div className="hidden lg:flex items-center gap-10 xl:gap-14">
+          <div className="hidden lg:flex items-center gap-8 xl:gap-10">
             {navLinks.map((link) => (
               <motion.button
                 key={link.name}
@@ -114,7 +117,7 @@ export default function Navbar() {
                 whileHover={{ y: -1 }}
               >
                 <span
-                  className={`text-xs tracking-[0.18em] uppercase font-medium transition-colors duration-300 ${
+                  className={`text-[0.65rem] md:text-[0.7rem] tracking-[0.2em] uppercase font-medium transition-colors duration-300 ${
                     activeSection === link.href.replace('#', '')
                       ? 'text-luxury-gold'
                       : 'text-ivory-white/70 hover:text-ivory-white'
@@ -129,7 +132,7 @@ export default function Navbar() {
                     width: activeSection === link.href.replace('#', '') ? '100%' : 0,
                   }}
                   whileHover={{ width: '100%' }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.28 }}
                 />
               </motion.button>
             ))}
@@ -137,23 +140,23 @@ export default function Navbar() {
 
           <motion.button
             onClick={() => setIsMobileMenuOpen((current) => !current)}
-            className="lg:hidden relative flex h-10 w-14 items-center justify-center"
-            whileHover={isMobileMenuOpen ? {} : { scale: 1.03 }}
+            className="lg:hidden relative flex h-10 w-12 items-center justify-center"
+            whileHover={isMobileMenuOpen ? {} : { scale: 1.02 }}
             whileTap={{ scale: 0.92 }}
           >
             <motion.span
               className="absolute left-0 top-1/2 h-[1px] bg-ivory-white"
               variants={topLineVariants}
               animate={isMobileMenuOpen ? 'open' : 'closed'}
-              transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
               style={{ originX: 0 }}
             />
             <motion.span
               className="absolute left-0 top-1/2 h-[1px] bg-ivory-white"
               variants={bottomLineVariants}
               animate={isMobileMenuOpen ? 'open' : 'closed'}
-              whileHover={!isMobileMenuOpen ? { x: -4 } : {}}
-              transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+              whileHover={!isMobileMenuOpen ? { x: -3 } : {}}
+              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
               style={{ originX: 0 }}
             />
           </motion.button>
@@ -178,7 +181,7 @@ export default function Navbar() {
               </span>
             </motion.div>
 
-            <div className="relative z-10 min-h-screen px-8 py-8 flex flex-col">
+            <div className="relative z-10 min-h-screen px-6 py-6 flex flex-col">
               <div className="flex items-center justify-between">
                 <div>
                   <span className="text-sm tracking-[0.35em] uppercase text-ivory-white/60">Menu</span>
@@ -204,12 +207,12 @@ export default function Navbar() {
                 </motion.button>
               </div>
 
-              <motion.div className="mt-16 flex-1 grid gap-8" initial="hidden" animate="visible" variants={overlayVariants}>
-                {navLinks.map((link, index) => (
+              <motion.div className="mt-12 flex-1 grid gap-5" initial="hidden" animate="visible" variants={overlayVariants}>
+                {navLinks.map((link) => (
                   <motion.button
                     key={link.name}
                     onClick={() => scrollToSection(link.href)}
-                    className="group relative text-left text-[clamp(4rem,10vw,6.5rem)] font-extralight uppercase tracking-[0.25em] leading-[0.85] text-ivory-white"
+                    className="group relative text-left text-[clamp(2.4rem,7vw,3.8rem)] font-extralight uppercase tracking-[0.18em] leading-[0.92] text-ivory-white"
                     variants={menuItemVariants}
                     whileHover={{ x: 10 }}
                   >

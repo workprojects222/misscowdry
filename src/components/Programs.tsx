@@ -80,23 +80,23 @@ function ProgramBlock({
   return (
     <motion.section
       ref={blockRef}
-      className="relative py-16 md:py-20 lg:py-24 min-h-fit lg:min-h-[60vh]"
+      className="relative py-10 md:py-14 lg:py-16 min-h-fit lg:min-h-[50vh]"
       style={{ opacity: sectionOpacity, filter: sectionBlur, scale: sectionScale }}
     >
       <div className="container-wide h-full">
         <div
-          className={`grid gap-8 md:gap-12 lg:gap-16 lg:grid-cols-2 items-stretch ${
-            isImageLeft ? 'lg:auto' : 'lg:auto'
+          className={`grid gap-6 md:gap-10 lg:gap-12 lg:grid-cols-2 items-center ${
+            isImageLeft ? '' : ''
           }`}
         >
           {/* Image Container */}
           <motion.div
-            className={`relative overflow-hidden rounded-[32px] border border-ivory-white/10 min-h-[400px] md:min-h-[500px] lg:min-h-[550px] ${
+            className={`relative overflow-hidden rounded-[28px] border border-ivory-white/10 min-h-[240px] md:min-h-[300px] lg:min-h-[340px] ${
               isImageLeft ? '' : 'lg:order-2'
             }`}
-            initial={{ opacity: 0, x: isImageLeft ? -30 : 30 }}
+            initial={{ opacity: 0, x: isImageLeft ? -20 : 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.2 }}
+            transition={{ duration: 0.85, delay: 0.2 }}
           >
             <motion.img
               src={program.image}
@@ -110,7 +110,7 @@ function ProgramBlock({
 
           {/* Content Container */}
           <motion.div
-            className={`relative flex flex-col justify-center ${isImageLeft ? '' : 'lg:order-1'}`}
+            className={`relative flex flex-col justify-center rounded-[28px] border border-ivory-white/10 bg-charcoal/50 p-6 md:p-8 lg:p-10 ${isImageLeft ? '' : 'lg:order-1'}`}
             initial={{ opacity: 0, x: isImageLeft ? 30 : -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.9, delay: 0.25 }}
@@ -121,7 +121,7 @@ function ProgramBlock({
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="mb-8"
+                className="mb-6"
               >
                 <span className="text-7xl md:text-8xl lg:text-9xl font-black tracking-[0.15em] text-ivory-white/8 leading-none">
                   {program.number}
@@ -143,7 +143,7 @@ function ProgramBlock({
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.9, delay: 0.35 }}
-                className="text-4xl md:text-5xl lg:text-6xl leading-[0.9] font-semibold tracking-[-0.03em] text-ivory-white mb-8"
+                className="text-3xl md:text-4xl lg:text-5xl leading-[0.95] font-semibold tracking-[-0.03em] text-ivory-white mb-6"
               >
                 {program.title}
               </motion.h3>
@@ -153,7 +153,7 @@ function ProgramBlock({
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-base md:text-lg leading-relaxed text-ivory-white/70 mb-8"
+                className="text-base md:text-lg leading-relaxed text-ivory-white/70 mb-6"
               >
                 {program.description}
               </motion.p>
@@ -163,7 +163,7 @@ function ProgramBlock({
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-lg md:text-xl lg:text-2xl font-semibold leading-tight text-luxury-gold mb-10"
+                className="text-lg md:text-xl lg:text-2xl font-semibold leading-tight text-luxury-gold mb-8"
               >
                 {program.impact}
               </motion.p>
@@ -204,7 +204,7 @@ export default function Programs() {
       transition={{ duration: 0.8 }}
     >
       {/* Section Header */}
-      <div className="container-wide py-24 md:py-32">
+      <div className="container-wide py-16 md:py-18 lg:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -222,14 +222,14 @@ export default function Programs() {
       </div>
 
       {/* Program Blocks */}
-      <div className="space-y-8 md:space-y-12 lg:space-y-20">
+      <div className="space-y-8 md:space-y-10 lg:space-y-12">
         {programs.map((program, index) => (
           <ProgramBlock key={program.id} program={program} index={index} />
         ))}
       </div>
 
       {/* Bottom spacing */}
-      <div className="h-8 md:h-12 lg:h-16" />
+      <div className="h-6 md:h-8 lg:h-10" />
     </motion.section>
   );
 }

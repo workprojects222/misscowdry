@@ -8,20 +8,20 @@ export default function Quote() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[80vh] flex items-center bg-charcoal py-24 md:py-32 lg:py-48"
+      className="relative min-h-[60vh] flex items-center bg-charcoal py-16 md:py-20 lg:py-24"
     >
       <div className="container-wide">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="max-w-4xl"
+          className="max-w-3xl"
         >
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-light leading-[1.15] tracking-[-0.03em] text-ivory-white mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-[-0.03em] text-ivory-white mb-5"
           >
             Empowering Youth.
           </motion.h2>
@@ -30,7 +30,7 @@ export default function Quote() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-light leading-[1.15] tracking-[-0.03em] text-ivory-white mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-[-0.03em] text-ivory-white mb-5"
           >
             Transforming Communities.
           </motion.h2>
@@ -39,7 +39,7 @@ export default function Quote() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.15] tracking-[-0.03em] text-luxury-gold"
+            className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-[-0.03em] text-luxury-gold"
           >
             Building The Future.
           </motion.h2>

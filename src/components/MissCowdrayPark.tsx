@@ -20,7 +20,7 @@ export default function MissCowdrayPark() {
     <motion.section
       id="miss-cowdray-park"
       ref={containerRef}
-      className="relative overflow-hidden bg-charcoal py-24 md:py-32 lg:py-48"
+      className="relative overflow-hidden bg-charcoal py-20 md:py-24 lg:py-32"
       style={{ opacity: sectionOpacity, filter: sectionBlur }}
     >
       <div className="container-wide">
@@ -29,7 +29,7 @@ export default function MissCowdrayPark() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-16 md:mb-20 lg:mb-24 max-w-3xl"
+          className="mb-10 md:mb-14 lg:mb-16 max-w-3xl"
         >
           <p className="text-ivory-white/40 text-xs tracking-[0.3em] uppercase mb-8">Flagship Platform</p>
           
@@ -73,13 +73,13 @@ export default function MissCowdrayPark() {
         </motion.div>
 
         {/* Gallery Grid */}
-        <div className="grid gap-6 md:gap-8 lg:gap-10 lg:grid-cols-[1.5fr_1fr] min-h-[60vh] md:min-h-[70vh]">
+        <div className="grid gap-5 md:gap-6 lg:gap-8 lg:grid-cols-[1.4fr_1fr] min-h-[40vh] md:min-h-[52vh]">
           {/* Featured Image - Large left */}
           <motion.div
             className="relative overflow-hidden rounded-[32px] border border-ivory-white/10 row-span-2"
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.3 }}
+            transition={{ duration: 0.85, delay: 0.25 }}
           >
             <motion.img
               src={missImages[0].url}

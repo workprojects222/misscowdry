@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { mongileMoyoFounder } from '../assets/images';
+import { aboutImage } from '../assets/images';
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -19,20 +19,20 @@ export default function About() {
     <motion.section
       id="about"
       ref={containerRef}
-      className="relative overflow-hidden bg-charcoal py-24 md:py-32 lg:py-48"
+      className="relative overflow-hidden bg-charcoal py-16 md:py-20 lg:py-28"
       style={{ opacity: sectionOpacity, filter: sectionBlur, scale: sectionScale }}
     >
       <div className="container-wide h-full">
-        <div className="grid gap-8 lg:gap-20 lg:grid-cols-[1fr_1.3fr] items-stretch min-h-[70vh]">
+        <div className="grid gap-6 lg:gap-14 lg:grid-cols-[1fr_1.3fr] items-center min-h-fit">
           {/* Founder Image - Dominates the left */}
           <motion.div
-            className="relative overflow-hidden rounded-[32px] border border-ivory-white/10"
-            initial={{ opacity: 0, x: -50 }}
+            className="relative overflow-hidden rounded-[28px] border border-ivory-white/10"
+            initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1, delay: 0.2 }}
           >
             <motion.img 
-              src={mongileMoyoFounder} 
+              src={aboutImage} 
               alt="Founder Mongile Moyo" 
               className="w-full h-full object-cover"
               style={{ scale: imageScale }}
@@ -101,13 +101,6 @@ export default function About() {
               </motion.div>
             </div>
           </motion.div>
-        </div>
-      </div>
-
-      {/* Mobile Image Layout */}
-      <div className="lg:hidden mt-12 overflow-hidden">
-        <div className="relative">
-          <img src={mongileMoyoFounder} alt="Founder Mongile Moyo" className="w-full h-auto object-cover rounded-[24px]" />
         </div>
       </div>
     </motion.section>

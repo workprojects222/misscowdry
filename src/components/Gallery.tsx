@@ -57,11 +57,11 @@ export default function Gallery() {
     <section
       id="gallery"
       ref={containerRef}
-      className="relative py-24 md:py-32 lg:py-48 bg-charcoal overflow-hidden"
+      className="relative py-20 md:py-24 lg:py-32 bg-charcoal overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="container-wide mb-16 md:mb-20 lg:mb-24">
+      <div className="container-wide mb-12 md:mb-16 lg:mb-20">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -86,7 +86,7 @@ export default function Gallery() {
       </div>
 
       <div className="relative w-[100vw] left-1/2 -translate-x-1/2 px-4 sm:px-6 lg:px-8 overflow-visible">
-        <div className="relative overflow-hidden rounded-[32px] border border-ivory-white/10 bg-rich-black min-h-[450px] sm:min-h-[550px] lg:min-h-[700px] max-h-[90vh]">
+        <div className="relative overflow-hidden rounded-[32px] border border-ivory-white/10 bg-rich-black min-h-[320px] sm:min-h-[420px] lg:min-h-[480px] max-h-[82vh]">
           {galleryImages.map((image, index) => {
             const isActive = index === activeIndex;
             return (
@@ -110,7 +110,7 @@ export default function Gallery() {
                 <img
                   src={image.url}
                   alt={image.alt}
-                  className="w-full h-full object-contain object-center"
+                  className="w-full h-full object-cover object-center"
                   loading="lazy"
                 />
               </motion.div>
@@ -122,7 +122,7 @@ export default function Gallery() {
             onClick={previousSlide}
             whileHover={{ scale: 1.05, x: -6 }}
             transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-            className="pointer-events-auto absolute left-0 top-1/2 z-20 -translate-y-1/2 flex h-12 w-40 items-center justify-start gap-3 px-3 text-ivory-white sm:h-14 sm:w-52 focus:outline-none"
+            className="pointer-events-auto absolute left-0 top-1/2 z-20 -translate-y-1/2 flex h-12 w-36 items-center justify-start gap-3 px-3 text-ivory-white sm:h-14 sm:w-48 focus:outline-none"
             aria-label="Previous slide"
           >
             <span className="text-base uppercase tracking-[0.3em] sm:text-lg">⟵</span>

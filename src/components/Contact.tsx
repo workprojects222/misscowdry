@@ -18,7 +18,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" ref={containerRef} className="relative overflow-hidden bg-charcoal py-24 md:py-32 lg:py-48">
+    <section id="contact" ref={containerRef} className="relative overflow-hidden bg-charcoal py-20 md:py-24 lg:py-32">
       <div className="container-wide">
         {/* Header */}
         <motion.div
@@ -37,13 +37,13 @@ export default function Contact() {
         </motion.div>
 
         {/* Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
           {/* Info Section */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="rounded-[32px] border border-ivory-white/10 bg-ivory-white/5 p-10 md:p-12 lg:p-16"
+            className="rounded-[24px] border border-ivory-white/10 bg-charcoal/60 p-8 md:p-10 lg:p-12"
           >
             <div className="space-y-10 mb-12">
               {[
@@ -64,7 +64,7 @@ export default function Contact() {
                 {['Instagram', 'Facebook', 'Twitter'].map((social) => (
                   <button
                     key={social}
-                    className="px-6 py-3 text-xs tracking-[0.1em] uppercase text-ivory-white/60 hover:text-ivory-white border border-ivory-white/20 hover:border-ivory-white/40 transition-colors"
+                    className="px-4 py-2 text-[0.65rem] tracking-[0.12em] uppercase text-ivory-white/60 hover:text-ivory-white border border-ivory-white/20 hover:border-ivory-white/40 transition-colors"
                   >
                     {social}
                   </button>
@@ -79,7 +79,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.25, duration: 0.8 }}
-            className="space-y-8 rounded-[32px] border border-ivory-white/10 bg-ivory-white/5 p-10 md:p-12 lg:p-16"
+            className="space-y-6 rounded-[24px] border border-ivory-white/10 bg-charcoal/60 p-8 md:p-10 lg:p-12"
           >
             <div className="grid md:grid-cols-2 gap-8">
               <div>

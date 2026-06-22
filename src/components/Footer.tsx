@@ -24,10 +24,10 @@ export default function Footer() {
   };
 
   return (
-    <footer ref={containerRef} className="relative bg-charcoal py-24 md:py-32">
+    <footer ref={containerRef} className="relative bg-charcoal py-16 md:py-20">
       <div className="px-6 md:px-12 lg:px-20">
         {/* Main Footer Content */}
-        <div className="grid md:grid-cols-2 gap-16 md:gap-24 mb-16 md:mb-24">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-14 mb-12 md:mb-16">
           {/* Left - Branding */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -98,7 +98,7 @@ export default function Footer() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="pt-8 border-t border-ivory-white/10 flex flex-col md:flex-row justify-between items-start gap-4"
+          className="pt-6 border-t border-ivory-white/10 flex flex-col md:flex-row justify-between items-start gap-4"
         >
           <p className="text-ivory-white/30 text-xs tracking-wider">
             &copy; {new Date().getFullYear()} Cowdray Park Foundation.
