@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { programImages } from '../assets/images';
+import { cardEnterVariants, cardHoverVariants, imageRevealVariants, headingLineVariants, paragraphVariants } from '../animations';
 
 const programs = [
   {
@@ -69,10 +70,10 @@ function ProgramBlock({
     offset: ['start end', 'end start'],
   });
 
-  const sectionOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.35, 1, 1, 0.45]);
-  const sectionBlur = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], ['10px', '0px', '0px', '10px']);
-  const sectionScale = useTransform(scrollYProgress, [0, 1], [0.98, 1]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.1, 1]);
+  // Scroll storytelling: fade previous, sharpen current
+  const sectionOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.6, 1, 1, 0.6]);
+  const sectionBlur = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], ['3px', '0px', '0px', '3px']);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.05, 1]);
 
   // Alternate layout: odd programs have image left, even have image right
   const isImageLeft = index % 2 === 0;
@@ -81,7 +82,7 @@ function ProgramBlock({
     <motion.section
       ref={blockRef}
       className="relative py-10 md:py-14 lg:py-16 min-h-fit lg:min-h-[50vh]"
-      style={{ opacity: sectionOpacity, filter: sectionBlur, scale: sectionScale }}
+      style={{ opacity: sectionOpacity, filter: sectionBlur }}
     >
       <div className="container-wide h-full">
         <div
@@ -94,9 +95,10 @@ function ProgramBlock({
             className={`relative overflow-hidden rounded-[28px] border border-ivory-white/10 min-h-[240px] md:min-h-[300px] lg:min-h-[340px] ${
               isImageLeft ? '' : 'lg:order-2'
             }`}
-            initial={{ opacity: 0, x: isImageLeft ? -20 : 20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.85, delay: 0.2 }}
+            initial={{ scale: 1.08, opacity: 0 }}
+            animate={isInView ? { scale: 1, opacity: 1 } : {}}
+            transition={{ duration: 1, ease: 'easeOut' }}
+            whileHover={{ y: -4 }}
           >
             <motion.img
               src={program.image}
@@ -111,16 +113,17 @@ function ProgramBlock({
           {/* Content Container */}
           <motion.div
             className={`relative flex flex-col justify-center rounded-[28px] border border-ivory-white/10 bg-charcoal/50 p-6 md:p-8 lg:p-10 ${isImageLeft ? '' : 'lg:order-1'}`}
-            initial={{ opacity: 0, x: isImageLeft ? 30 : -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.25 }}
+            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+            animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
+            whileHover={{ y: -8, boxShadow: '0 20px 50px rgba(0,0,0,0.4)' }}
           >
             <div>
               {/* Program Number as design element */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: 0.3 }}
+                transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
                 className="mb-6"
               >
                 <span className="text-7xl md:text-8xl lg:text-9xl font-black tracking-[0.15em] text-ivory-white/8 leading-none">
@@ -130,29 +133,31 @@ function ProgramBlock({
 
               {/* Program Label */}
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
                 className="text-ivory-white/50 text-xs tracking-[0.35em] uppercase mb-4"
               >
                 {program.label}
               </motion.p>
 
               {/* Program Title */}
-              <motion.h3
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.9, delay: 0.35 }}
-                className="text-[clamp(1.5rem,4vw,5rem)] leading-[0.95] font-semibold tracking-[-0.03em] text-ivory-white mb-6"
-              >
-                {program.title}
-              </motion.h3>
+              <div className="mb-6 overflow-hidden">
+                <motion.h3
+                  initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+                  animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+                  transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+                  className="text-[clamp(1.5rem,4vw,5rem)] leading-[0.95] font-semibold tracking-[-0.03em] text-ivory-white"
+                >
+                  {program.title}
+                </motion.h3>
+              </div>
 
               {/* Description */}
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.4 }}
+                transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
                 className="text-base md:text-lg leading-relaxed text-ivory-white/70 mb-6"
               >
                 {program.description}
@@ -160,9 +165,9 @@ function ProgramBlock({
 
               {/* Impact statement - larger, bolder */}
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.5 }}
+                transition={{ duration: 0.6, delay: 0.45, ease: 'easeOut' }}
                 className="text-lg md:text-xl lg:text-2xl font-semibold leading-tight text-luxury-gold mb-8"
               >
                 {program.impact}
@@ -170,9 +175,9 @@ function ProgramBlock({
 
               {/* CTA Button */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.6 }}
+                transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
               >
                 <button
                   type="button"
@@ -199,20 +204,42 @@ export default function Programs() {
       id="programs"
       ref={containerRef}
       className="relative bg-charcoal"
-      initial={{ opacity: 0.4 }}
-      animate={isInView ? { opacity: 1 } : {}}
-      transition={{ duration: 0.8 }}
+      initial={{ opacity: 0, y: 60, filter: 'blur(10px)' }}
+      animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
     >
       {/* Section Header */}
       <div className="container-wide py-16 md:py-18 lg:py-20">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl"
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="max-w-3xl space-y-4"
         >
-          <p className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase mb-6">Our Programs</p>
-          <h2 className="text-[clamp(1.5rem,4vw,6rem)] font-light tracking-[-0.02em] text-ivory-white mb-6">
+          <motion.p 
+            variants={paragraphVariants}
+            className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase"
+          >
+            Our Programs
+          </motion.p>
+          
+          <div className="overflow-hidden">
+            <motion.h2 
+              variants={headingLineVariants}
+              custom={0}
+              className="text-[clamp(1.5rem,4vw,6rem)] font-light tracking-[-0.02em] text-ivory-white"
+            >
+              Transforming young lives through bold, intentional programs.
+            </motion.h2>
+          </div>
+          
+          <motion.p 
+            variants={paragraphVariants}
+            className="text-ivory-white/70 text-base md:text-lg leading-relaxed"
+          >
+            Every program is designed with purpose—uniting images, stories, and ambition to empower youth into leaders, creators, and agents of change.
+          </motion.p>
+        </motion.div>
+      </div>
             Transforming young lives through bold, intentional programs.
           </h2>
           <p className="text-ivory-white/70 text-base md:text-lg leading-relaxed">

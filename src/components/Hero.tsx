@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { heroImage } from '../assets/images';
+import { headingLineVariants, paragraphVariants } from '../animations';
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -77,45 +78,51 @@ export default function Hero() {
             <div className="flex items-center px-6 md:px-12 lg:px-0">
               <motion.div style={{ y: textLift }} className="max-w-[550px] text-ivory-white">
                 <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
+                  variants={paragraphVariants}
+                  initial="hidden"
+                  animate="visible"
                   className="text-xs md:text-sm tracking-[0.3em] uppercase text-ivory-white/70 mb-4"
                 >
                   Bulawayo, Zimbabwe
                 </motion.p>
 
-                <motion.h1
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  className="text-[clamp(2.2rem,6vw,6rem)] font-light leading-[0.82] tracking-[-0.04em] mb-4"
-                >
-                  COWDRAY PARK
-                </motion.h1>
+                <div className="mb-4 overflow-hidden">
+                  <motion.h1
+                    variants={headingLineVariants}
+                    initial="hidden"
+                    animate="visible"
+                    custom={0}
+                    className="text-[clamp(2.2rem,6vw,6rem)] font-light leading-[0.82] tracking-[-0.04em]"
+                  >
+                    COWDRAY PARK
+                  </motion.h1>
+                </div>
 
-                <motion.h2
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="text-[clamp(1.8rem,5vw,4.2rem)] font-semibold leading-[0.82] tracking-[-0.04em] mb-10"
-                >
-                  FOUNDATION
-                </motion.h2>
+                <div className="mb-10 overflow-hidden">
+                  <motion.h2
+                    variants={headingLineVariants}
+                    initial="hidden"
+                    animate="visible"
+                    custom={1}
+                    className="text-[clamp(1.8rem,5vw,4.2rem)] font-semibold leading-[0.82] tracking-[-0.04em]"
+                  >
+                    FOUNDATION
+                  </motion.h2>
+                </div>
 
                 <motion.p
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
+                  variants={paragraphVariants}
+                  initial="hidden"
+                  animate="visible"
                   className="text-base md:text-lg leading-relaxed text-ivory-white/85 mb-10"
                 >
                   Empowering young people through leadership development, talent nurturing, and community engagement initiatives.
                 </motion.p>
 
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
+                  transition={{ duration: 0.7, ease: 'easeOut', delay: 0.4 }}
                   className="grid gap-4 sm:grid-cols-2"
                 >
                   <button

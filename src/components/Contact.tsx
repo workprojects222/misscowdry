@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { sectionRevealVariants, headingLineVariants, paragraphVariants } from '../animations';
 
 export default function Contact() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,28 +23,44 @@ export default function Contact() {
       <div className="container-wide">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="mb-12 md:mb-14 lg:mb-16 max-w-3xl"
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="mb-12 md:mb-14 lg:mb-16 max-w-3xl space-y-4"
         >
-          <p className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase mb-6">Get In Touch</p>
-          <h2 className="text-[clamp(1.8rem,5vw,7rem)] font-light tracking-[-0.02em] text-ivory-white mb-8">
-            Let's Build Together
-          </h2>
-          <p className="text-base md:text-lg leading-relaxed text-ivory-white/70">
+          <motion.p 
+            variants={paragraphVariants}
+            className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase"
+          >
+            Get In Touch
+          </motion.p>
+          
+          <div className="overflow-hidden">
+            <motion.h2 
+              variants={headingLineVariants}
+              custom={0}
+              className="text-[clamp(1.8rem,5vw,7rem)] font-light tracking-[-0.02em] text-ivory-white"
+            >
+              Let's Build Together
+            </motion.h2>
+          </div>
+          
+          <motion.p 
+            variants={paragraphVariants}
+            className="text-base md:text-lg leading-relaxed text-ivory-white/70"
+          >
             Have questions or want to get involved? We'd love to hear from you. Reach out and join us in making a difference in the community.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Content Grid */}
         <div className="grid lg:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
           {/* Info Section */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+            animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ delay: 0.15, duration: 0.8, ease: 'easeOut' }}
             className="rounded-[24px] border border-ivory-white/10 bg-charcoal/60 p-6 md:p-8 lg:p-10"
+            whileHover={{ y: -4 }}
           >
             <div className="space-y-10 mb-12">
               {[
@@ -76,10 +93,11 @@ export default function Contact() {
           {/* Form Section */}
           <motion.form
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.25, duration: 0.8 }}
+            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+            animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
             className="space-y-5 rounded-[24px] border border-ivory-white/10 bg-charcoal/60 p-6 md:p-8 lg:p-10"
+            whileHover={{ y: -4 }}
           >
             <div className="grid md:grid-cols-2 gap-8">
               <div>

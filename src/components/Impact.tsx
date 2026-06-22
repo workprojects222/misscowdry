@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { animate, motion, useInView, useMotionValue, useMotionValueEvent } from 'framer-motion';
+import { sectionRevealVariants, headingLineVariants, paragraphVariants } from '../animations';
 
 const impactItems = [
   {
@@ -48,18 +49,33 @@ export default function Impact() {
       <div className="container-wide">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="mb-10 md:mb-14 lg:mb-18 max-w-3xl"
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="mb-10 md:mb-14 lg:mb-18 max-w-3xl space-y-4"
         >
-          <p className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase mb-6">Measurable Impact</p>
-          <h2 className="text-[clamp(1.8rem,5vw,7rem)] font-light tracking-[-0.02em] text-ivory-white mb-8">
-            Real Change
-          </h2>
-          <p className="text-base md:text-lg leading-relaxed text-ivory-white/70">
+          <motion.p 
+            variants={paragraphVariants}
+            className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase"
+          >
+            Measurable Impact
+          </motion.p>
+          
+          <div className="overflow-hidden">
+            <motion.h2 
+              variants={headingLineVariants}
+              custom={0}
+              className="text-[clamp(1.8rem,5vw,7rem)] font-light tracking-[-0.02em] text-ivory-white"
+            >
+              Real Change
+            </motion.h2>
+          </div>
+          
+          <motion.p 
+            variants={paragraphVariants}
+            className="text-base md:text-lg leading-relaxed text-ivory-white/70"
+          >
             Every initiative is designed with measurable outcomes, ensuring young people are supported with mentorship, opportunity, and follow-through.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Stats Grid */}
@@ -67,10 +83,11 @@ export default function Impact() {
           {impactItems.map((item, index) => (
             <motion.div
               key={`${item.target}${item.suffix}`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 + index * 0.1, duration: 0.8 }}
-              className="rounded-[24px] border border-ivory-white/10 bg-ivory-white/5 p-8 md:p-10 lg:p-12"
+              initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+              animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+              transition={{ delay: 0.15 + index * 0.1, duration: 0.8, ease: 'easeOut' }}
+              className="rounded-[24px] border border-ivory-white/10 bg-charcoal/60 p-8 md:p-10 lg:p-12"
+              whileHover={{ y: -4 }}
             >
               <AnimatedCount target={item.target} suffix={item.suffix} trigger={isInView} />
               <p className="text-ivory-white/60 text-base leading-relaxed">{item.description}</p>

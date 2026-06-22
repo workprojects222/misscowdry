@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { headingLineVariants } from '../animations';
 
 export default function Quote() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,42 +13,44 @@ export default function Quote() {
     >
       <div className="container-wide">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.2 }}
-          className="max-w-3xl"
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="max-w-3xl space-y-3"
         >
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-[clamp(1.6rem,4.5vw,6rem)] font-light leading-[1.1] tracking-[-0.03em] text-ivory-white mb-5"
-          >
-            Empowering Youth.
-          </motion.h2>
+          <div className="overflow-hidden">
+            <motion.h2
+              variants={headingLineVariants}
+              custom={0}
+              className="text-[clamp(1.6rem,4.5vw,6rem)] font-light leading-[1.1] tracking-[-0.03em] text-ivory-white"
+            >
+              Empowering Youth.
+            </motion.h2>
+          </div>
           
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-[clamp(1.6rem,4.5vw,6rem)] font-light leading-[1.1] tracking-[-0.03em] text-ivory-white mb-5"
-          >
-            Transforming Communities.
-          </motion.h2>
+          <div className="overflow-hidden">
+            <motion.h2
+              variants={headingLineVariants}
+              custom={1}
+              className="text-[clamp(1.6rem,4.5vw,6rem)] font-light leading-[1.1] tracking-[-0.03em] text-ivory-white"
+            >
+              Transforming Communities.
+            </motion.h2>
+          </div>
           
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-[clamp(1.6rem,4.5vw,6rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-luxury-gold"
-          >
-            Building The Future.
-          </motion.h2>
+          <div className="overflow-hidden">
+            <motion.h2
+              variants={headingLineVariants}
+              custom={2}
+              className="text-[clamp(1.6rem,4.5vw,6rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-luxury-gold"
+            >
+              Building The Future.
+            </motion.h2>
+          </div>
 
           <motion.div
-            initial={{ width: 0 }}
-            animate={isInView ? { width: '100%', maxWidth: '280px' } : {}}
-            transition={{ delay: 0.7, duration: 1 }}
+            initial={{ width: 0, opacity: 0 }}
+            animate={isInView ? { width: '100%', maxWidth: '280px', opacity: 1 } : {}}
+            transition={{ delay: 0.65, duration: 0.8, ease: 'easeOut' }}
             className="h-px bg-luxury-gold/40 mt-12 md:mt-16"
           />
         </motion.div>

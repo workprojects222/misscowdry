@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { mobileMenuVariants, menuBackdropVariants, menuItemVariants, navbarScrollVariants, navLogoVariants, navHeightVariants } from '../animations';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -9,35 +10,6 @@ const navLinks = [
   { name: 'Gallery', href: '#gallery' },
   { name: 'Contact', href: '#contact' },
 ];
-
-const sheetVariants: Variants = {
-  hidden: { y: '100%', opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.35, ease: 'easeOut' },
-  },
-  exit: { y: '100%', opacity: 0, transition: { duration: 0.3, ease: 'easeIn' } },
-};
-
-const backdropVariants: Variants = {
-  hidden: { opacity: 0, backdropFilter: 'blur(0px)' },
-  visible: {
-    opacity: 1,
-    backdropFilter: 'blur(8px)',
-    transition: { duration: 0.35 },
-  },
-  exit: { opacity: 0, backdropFilter: 'blur(0px)', transition: { duration: 0.3 } },
-};
-
-const menuItemVariants: Variants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: { delay: 0.05 + i * 0.03, duration: 0.35, ease: 'easeOut' },
-  }),
-};
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -79,8 +51,10 @@ export default function Navbar() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${isScrolled ? 'bg-charcoal/95 backdrop-blur-sm py-3.5' : 'bg-transparent py-4'}`}
+        transition={{ duration: 0.6 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled ? 'bg-charcoal/80 backdrop-blur-md py-3' : 'bg-transparent py-5'
+        }`}
       >
         <div className="px-4 sm:px-6 lg:px-16 flex items-center justify-between">
           <motion.a
@@ -90,6 +64,8 @@ export default function Navbar() {
               scrollToSection('#home');
             }}
             className="relative z-10"
+            animate={{ scale: isScrolled ? 0.9 : 1 }}
+            transition={{ duration: 0.4 }}
             whileHover={{ opacity: 0.85 }}
           >
             <span className="text-sm font-semibold tracking-[0.35em] text-ivory-white uppercase">CPF</span>
@@ -139,7 +115,7 @@ export default function Navbar() {
           <>
             <motion.div
               className="fixed inset-0 z-40 bg-charcoal/40"
-              variants={backdropVariants}
+              variants={menuBackdropVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -147,8 +123,8 @@ export default function Navbar() {
             />
 
             <motion.div
-              className="fixed bottom-0 left-0 right-0 z-50 w-full rounded-t-[32px] bg-charcoal border-t border-ivory-white/10"
-              variants={sheetVariants}
+              className="fixed top-0 left-0 right-0 z-50 w-full bg-charcoal border-b border-ivory-white/10"
+              variants={mobileMenuVariants}
               initial="hidden"
               animate="visible"
               exit="exit"

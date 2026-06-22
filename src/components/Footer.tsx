@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { paragraphVariants } from '../animations';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -30,27 +31,46 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 gap-10 md:gap-14 mb-12 md:mb-16">
           {/* Left - Branding */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+            animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            <h2 className="text-ivory-white text-[clamp(1.4rem,5vw,4rem)] font-light leading-[1] tracking-[-0.02em] mb-3">
-              COWDRAY PARK
-            </h2>
-            <h2 className="text-luxury-gold text-[clamp(1.4rem,5vw,4rem)] font-semibold leading-[1] tracking-[-0.02em] mb-8">
-              FOUNDATION
-            </h2>
-            <p className="text-ivory-white/50 text-base leading-relaxed max-w-md">
+            <div className="overflow-hidden mb-3">
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+                className="text-ivory-white text-[clamp(1.4rem,5vw,4rem)] font-light leading-[1] tracking-[-0.02em]"
+              >
+                COWDRAY PARK
+              </motion.h2>
+            </div>
+            <div className="overflow-hidden mb-8">
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
+                className="text-luxury-gold text-[clamp(1.4rem,5vw,4rem)] font-semibold leading-[1] tracking-[-0.02em]"
+              >
+                FOUNDATION
+              </motion.h2>
+            </div>
+            <motion.p 
+              variants={paragraphVariants}
+              initial="hidden"
+              animate={isInView ? 'visible' : 'hidden'}
+              className="text-ivory-white/50 text-base leading-relaxed max-w-md"
+            >
               Building the next generation of leaders through youth empowerment
               and community transformation in Bulawayo, Zimbabwe.
-            </p>
+            </motion.p>
           </motion.div>
 
           {/* Right - Navigation */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+            animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
             className="grid grid-cols-2 gap-8"
           >
             <div>

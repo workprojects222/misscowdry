@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { sectionRevealVariants, headingLineVariants, paragraphVariants } from '../animations';
 import { galleryImages } from '../assets/images';
 
 const slideTransition = {
@@ -63,25 +64,36 @@ export default function Gallery() {
     >
       <div className="container-wide mb-12 md:mb-16 lg:mb-20">
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          variants={paragraphVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
           className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase mb-6"
         >
           Gallery
         </motion.p>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.1, duration: 0.8 }}
-          className="max-w-3xl"
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="max-w-3xl space-y-1"
         >
-          <h2 className="text-[clamp(1.8rem,5vw,7rem)] font-light tracking-[-0.02em] text-ivory-white mb-4">
-            Moments of
-          </h2>
-          <h2 className="text-[clamp(1.8rem,5vw,7rem)] font-semibold tracking-[-0.02em] text-luxury-gold">
-            Transformation
-          </h2>
+          <div className="overflow-hidden">
+            <motion.h2 
+              variants={headingLineVariants}
+              custom={0}
+              className="text-[clamp(1.8rem,5vw,7rem)] font-light tracking-[-0.02em] text-ivory-white"
+            >
+              Moments of
+            </motion.h2>
+          </div>
+          <div className="overflow-hidden">
+            <motion.h2 
+              variants={headingLineVariants}
+              custom={1}
+              className="text-[clamp(1.8rem,5vw,7rem)] font-semibold tracking-[-0.02em] text-luxury-gold"
+            >
+              Transformation
+            </motion.h2>
+          </div>
         </motion.div>
       </div>
 
