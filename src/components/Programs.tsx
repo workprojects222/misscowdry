@@ -63,7 +63,7 @@ function ProgramBlock({
   index: number;
 }) {
   const blockRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(blockRef, { once: true, margin: '-150px' });
+  const isInView = useInView(blockRef, { once: true, margin: '-100px' });
   const { scrollYProgress } = useScroll({
     target: blockRef,
     offset: ['start end', 'end start'],
@@ -72,87 +72,117 @@ function ProgramBlock({
   const sectionOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.35, 1, 1, 0.45]);
   const sectionBlur = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], ['10px', '0px', '0px', '10px']);
   const sectionScale = useTransform(scrollYProgress, [0, 1], [0.98, 1]);
-  const textRise = useTransform(scrollYProgress, [0, 1], [30, 0]);
   const imageScale = useTransform(scrollYProgress, [0, 1], [1.1, 1]);
+
+  // Alternate layout: odd programs have image left, even have image right
+  const isImageLeft = index % 2 === 0;
 
   return (
     <motion.section
       ref={blockRef}
-      className="relative min-h-[80vh] py-20 lg:py-24"
+      className="relative py-16 md:py-20 lg:py-24 min-h-fit lg:min-h-[60vh]"
       style={{ opacity: sectionOpacity, filter: sectionBlur, scale: sectionScale }}
     >
       <div className="container-wide h-full">
-        <div className="grid gap-10 lg:gap-16 lg:grid-cols-[45%_55%] items-start">
+        <div
+          className={`grid gap-8 md:gap-12 lg:gap-16 lg:grid-cols-2 items-stretch ${
+            isImageLeft ? 'lg:auto' : 'lg:auto'
+          }`}
+        >
+          {/* Image Container */}
           <motion.div
-            className="relative flex flex-col justify-center rounded-[32px] border border-ivory-white/10 bg-ivory-white/5 p-8 md:p-12 lg:p-16 xl:p-20 overflow-hidden"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            className={`relative overflow-hidden rounded-[32px] border border-ivory-white/10 min-h-[400px] md:min-h-[500px] lg:min-h-[550px] ${
+              isImageLeft ? '' : 'lg:order-2'
+            }`}
+            initial={{ opacity: 0, x: isImageLeft ? -30 : 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.9, delay: 0.2 }}
-            style={{ y: textRise }}
-          >
-            <span className="text-ivory-white/50 text-xs tracking-[0.35em] uppercase mb-6">{program.label}</span>
-            <div className="relative overflow-hidden">
-              <span className="pointer-events-none absolute right-0 top-0 text-[7rem] md:text-[9rem] lg:text-[10rem] leading-none font-semibold text-ivory-white/10 select-none">
-                {program.number}
-              </span>
-              <motion.h3
-                initial={{ opacity: 0, y: 32 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.9, delay: 0.3 }}
-                className="relative text-5xl md:text-[4.5rem] lg:text-[5rem] xl:text-[6rem] leading-[0.88] font-semibold tracking-[-0.05em] text-ivory-white max-w-xl"
-              >
-                {program.title}
-              </motion.h3>
-            </div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 28 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="mt-10 text-base md:text-lg leading-relaxed text-ivory-white/70 max-w-xl"
-            >
-              {program.description}
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 28 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-10 text-xl md:text-2xl font-semibold leading-tight text-ivory-white"
-            >
-              {program.impact}
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-12"
-            >
-              <button
-                type="button"
-                onClick={() => (window.location.hash = 'coming-soon')}
-                className="inline-flex items-center rounded-none border border-ivory-white/20 bg-luxury-gold px-8 py-4 text-sm uppercase tracking-[0.22em] text-rich-black transition hover:bg-champagne-gold"
-              >
-                Learn More
-              </button>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            className="relative h-[80vh] min-h-[80vh] overflow-hidden rounded-[32px] border border-ivory-white/10 bg-rich-black/10"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.25 }}
           >
             <motion.img
               src={program.image}
               alt={program.title}
-              className="absolute inset-0 w-full h-full object-contain object-center"
+              className="w-full h-full object-cover"
               loading="lazy"
               style={{ scale: imageScale }}
             />
             <div className="pointer-events-none absolute inset-0 border border-ivory-white/10" />
+          </motion.div>
+
+          {/* Content Container */}
+          <motion.div
+            className={`relative flex flex-col justify-center ${isImageLeft ? '' : 'lg:order-1'}`}
+            initial={{ opacity: 0, x: isImageLeft ? 30 : -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.25 }}
+          >
+            <div>
+              {/* Program Number as design element */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="mb-8"
+              >
+                <span className="text-7xl md:text-8xl lg:text-9xl font-black tracking-[0.15em] text-ivory-white/8 leading-none">
+                  {program.number}
+                </span>
+              </motion.div>
+
+              {/* Program Label */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-ivory-white/50 text-xs tracking-[0.35em] uppercase mb-4"
+              >
+                {program.label}
+              </motion.p>
+
+              {/* Program Title */}
+              <motion.h3
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.9, delay: 0.35 }}
+                className="text-4xl md:text-5xl lg:text-6xl leading-[0.9] font-semibold tracking-[-0.03em] text-ivory-white mb-8"
+              >
+                {program.title}
+              </motion.h3>
+
+              {/* Description */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-base md:text-lg leading-relaxed text-ivory-white/70 mb-8"
+              >
+                {program.description}
+              </motion.p>
+
+              {/* Impact statement - larger, bolder */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="text-lg md:text-xl lg:text-2xl font-semibold leading-tight text-luxury-gold mb-10"
+              >
+                {program.impact}
+              </motion.p>
+
+              {/* CTA Button */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                <button
+                  type="button"
+                  onClick={() => (window.location.hash = 'coming-soon')}
+                  className="inline-flex items-center rounded-none border border-ivory-white/20 bg-luxury-gold px-8 py-4 text-sm uppercase tracking-[0.22em] text-rich-black transition hover:bg-champagne-gold"
+                >
+                  Learn More
+                </button>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -173,6 +203,7 @@ export default function Programs() {
       animate={isInView ? { opacity: 1 } : {}}
       transition={{ duration: 0.8 }}
     >
+      {/* Section Header */}
       <div className="container-wide py-24 md:py-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -181,20 +212,24 @@ export default function Programs() {
           className="max-w-3xl"
         >
           <p className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase mb-6">Our Programs</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-[-0.02em] text-ivory-white mb-4">
-            A premium editorial approach to youth development.
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-[-0.02em] text-ivory-white mb-6">
+            Transforming young lives through bold, intentional programs.
           </h2>
           <p className="text-ivory-white/70 text-base md:text-lg leading-relaxed">
-            Every program is presented like a feature story—bold, purposeful, and designed to elevate the narrative of young leaders, creators, and changemakers.
+            Every program is designed with purpose—uniting images, stories, and ambition to empower youth into leaders, creators, and agents of change.
           </p>
         </motion.div>
       </div>
 
-      <div className="container-wide space-y-20">
+      {/* Program Blocks */}
+      <div className="space-y-8 md:space-y-12 lg:space-y-20">
         {programs.map((program, index) => (
           <ProgramBlock key={program.id} program={program} index={index} />
         ))}
       </div>
+
+      {/* Bottom spacing */}
+      <div className="h-8 md:h-12 lg:h-16" />
     </motion.section>
   );
 }

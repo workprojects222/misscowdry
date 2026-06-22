@@ -14,98 +14,102 @@ export default function MissCowdrayPark() {
 
   const sectionOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.35]);
   const sectionBlur = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], ['8px', '0px', '0px', '8px']);
-  const titleY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const subtitleX = useTransform(scrollYProgress, [0, 1], [0, 40]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
 
   return (
     <motion.section
       id="miss-cowdray-park"
       ref={containerRef}
-      className="relative overflow-hidden bg-charcoal py-24 md:py-32 lg:py-40"
+      className="relative overflow-hidden bg-charcoal py-24 md:py-32 lg:py-48"
       style={{ opacity: sectionOpacity, filter: sectionBlur }}
     >
-      <div className="container-wide px-6 md:px-12 lg:px-20">
+      <div className="container-wide">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-12 md:mb-16 lg:mb-20 max-w-3xl"
-          style={{ y: titleY }}
+          className="mb-16 md:mb-20 lg:mb-24 max-w-3xl"
         >
-          <p className="text-ivory-white/40 text-xs tracking-[0.3em] uppercase mb-6">Our Flagship Platform</p>
-          <motion.h2
-            style={{ x: subtitleX }}
-            className="text-ivory-white text-[4rem] md:text-[6rem] lg:text-[7rem] font-light leading-[0.85] tracking-[-0.04em] mb-2"
-          >
-            MISS
-          </motion.h2>
-          <motion.h2
-            style={{ x: subtitleX }}
-            className="text-luxury-gold text-[4rem] md:text-[6rem] lg:text-[7rem] font-semibold leading-[0.85] tracking-[-0.04em]"
-          >
-            COWDRAY PARK
-          </motion.h2>
-        </motion.div>
+          <p className="text-ivory-white/40 text-xs tracking-[0.3em] uppercase mb-8">Flagship Platform</p>
+          
+          <div className="mb-10">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.25 }}
+              className="text-5xl md:text-6xl lg:text-7xl font-light leading-[0.9] tracking-[-0.04em] text-ivory-white"
+            >
+              Miss Cowdray Park
+            </motion.h2>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.35, duration: 0.8 }}
-          className="max-w-2xl text-ivory-white text-base md:text-lg leading-relaxed mb-12"
-        >
-          <p>
-            A transformative platform designed to nurture confidence, leadership, talent, self-expression, and personal growth among young women.
-          </p>
-          <p className="mt-6 text-ivory-white/50">
-            Participants become ambassadors of change, representing their community with grace, intelligence, and purpose.
-          </p>
-        </motion.div>
-
-        <div className="grid gap-8 lg:grid-cols-[1.4fr_0.9fr]">
-          <motion.div
-            className="relative w-full overflow-hidden"
-            initial={{ opacity: 0, y: 60 }}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            style={{ y: imageY }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-lg md:text-xl font-semibold uppercase tracking-[0.1em] text-luxury-gold mb-8"
           >
-            <div className="relative left-1/2 w-[100vw] -translate-x-1/2 lg:left-0 lg:w-full lg:-translate-x-0">
-              <motion.img
-                src={missImages[0].url}
-                alt={missImages[0].alt}
-                className="w-full h-auto object-contain"
-                loading="lazy"
-                initial={{ scale: 1.08 }}
-                animate={isInView ? { scale: 1 } : {}}
-                transition={{ duration: 0.9, ease: 'easeOut' }}
-              />
-            </div>
+            A Transformative Platform for Young Women
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.35 }}
+            className="text-base md:text-lg leading-relaxed text-ivory-white/75 mb-6"
+          >
+            Miss Cowdray Park is designed to nurture confidence, leadership, and personal growth among young women. Participants become ambassadors of change, representing their community with grace, intelligence, and purpose.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-base md:text-lg leading-relaxed text-ivory-white/75"
+          >
+            Through competitions, mentorship, and public engagement, this platform elevates young women's voices and celebrates their potential to lead change.
+          </motion.p>
+        </motion.div>
+
+        {/* Gallery Grid */}
+        <div className="grid gap-6 md:gap-8 lg:gap-10 lg:grid-cols-[1.5fr_1fr] min-h-[60vh] md:min-h-[70vh]">
+          {/* Featured Image - Large left */}
+          <motion.div
+            className="relative overflow-hidden rounded-[32px] border border-ivory-white/10 row-span-2"
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.3 }}
+          >
+            <motion.img
+              src={missImages[0].url}
+              alt={missImages[0].alt}
+              className="w-full h-full object-cover"
+              loading="lazy"
+              style={{ scale: imageScale }}
+            />
+            <div className="pointer-events-none absolute inset-0 border border-ivory-white/10" />
           </motion.div>
 
-          <div className="grid gap-8">
-            {missImages.slice(1).map((item, index) => (
-              <motion.div
-                key={item.alt}
-                className="relative w-full overflow-hidden"
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.45 + index * 0.05, duration: 0.8 }}
-              >
-                <div className="relative left-1/2 w-[100vw] -translate-x-1/2 lg:left-0 lg:w-full lg:-translate-x-0">
-                  <motion.img
-                    src={item.url}
-                    alt={item.alt}
-                    className="w-full h-auto object-contain"
-                    loading="lazy"
-                    initial={{ scale: 1.08 }}
-                    animate={isInView ? { scale: 1 } : {}}
-                    transition={{ duration: 0.9, ease: 'easeOut' }}
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Right column images */}
+          {missImages.slice(1, 3).map((item, index) => (
+            <motion.div
+              key={item.alt}
+              className="relative overflow-hidden rounded-[32px] border border-ivory-white/10"
+              initial={{ opacity: 0, x: 40 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.9, delay: 0.35 + index * 0.1 }}
+            >
+              <motion.img
+                src={item.url}
+                alt={item.alt}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                style={{ scale: imageScale }}
+              />
+              <div className="pointer-events-none absolute inset-0 border border-ivory-white/10" />
+            </motion.div>
+          ))}
         </div>
       </div>
     </motion.section>

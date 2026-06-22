@@ -57,39 +57,36 @@ export default function Gallery() {
     <section
       id="gallery"
       ref={containerRef}
-      className="relative py-24 md:py-32 bg-charcoal overflow-hidden"
+      className="relative py-24 md:py-32 lg:py-48 bg-charcoal overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="px-6 md:px-8 lg:px-12 mb-12 md:mb-16">
+      <div className="container-wide mb-16 md:mb-20 lg:mb-24">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-ivory-white/40 text-xs tracking-[0.3em] uppercase mb-6"
+          className="text-ivory-white/50 text-xs tracking-[0.3em] uppercase mb-6"
         >
           Gallery
         </motion.p>
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1, duration: 0.8 }}
-          className="text-5xl md:text-6xl lg:text-7xl font-light tracking-[-0.02em] text-ivory-white"
+          className="max-w-3xl"
         >
-          Moments of
-        </motion.h2>
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-[-0.02em] text-luxury-gold"
-        >
-          Transformation
-        </motion.h2>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-[-0.02em] text-ivory-white mb-4">
+            Moments of
+          </h2>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-[-0.02em] text-luxury-gold">
+            Transformation
+          </h2>
+        </motion.div>
       </div>
 
-      <div className="relative w-[100vw] left-1/2 -translate-x-1/2 px-1 sm:px-2 lg:px-4 overflow-visible">
-        <div className="relative overflow-hidden border border-ivory-white/10 bg-rich-black min-h-[450px] sm:min-h-[550px] lg:min-h-[700px] max-h-[90vh]">
+      <div className="relative w-[100vw] left-1/2 -translate-x-1/2 px-4 sm:px-6 lg:px-8 overflow-visible">
+        <div className="relative overflow-hidden rounded-[32px] border border-ivory-white/10 bg-rich-black min-h-[450px] sm:min-h-[550px] lg:min-h-[700px] max-h-[90vh]">
           {galleryImages.map((image, index) => {
             const isActive = index === activeIndex;
             return (
